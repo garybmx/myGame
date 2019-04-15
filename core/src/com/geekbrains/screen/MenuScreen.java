@@ -2,39 +2,53 @@ package com.geekbrains.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import com.geekbrains.base.BaseScreen;
+import com.geekbrains.math.Rect;
+import com.geekbrains.sprite.BadLogic;
 
 public class MenuScreen extends BaseScreen {
 
-    private Vector2 touch;
+
     private Vector2 pos;
     private Vector2 v;
-
+    private  Vector2 buff;
+    BadLogic bl;
     private Texture img;
 
     @Override
     public void show() {
         super.show();
-        touch = new Vector2();
         pos = new Vector2();
         v = new Vector2(0.2f,0.5f);
+        buff = new Vector2();
         img = new Texture("badlogic.jpg");
+        bl = new BadLogic(new TextureRegion(img), 0.5f);
+
+    }
+    @Override
+    public void resize(Rect worldBounds) {
+        super.resize(worldBounds);
+        bl.resize(worldBounds);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
-        pos.add(v);
+        buff.set(touch);
+        System.out.println("Rect x " + touch.x + "y " + touch);
+        if(buff.sub(pos).len() > v.len()){
+            pos.add(v);
+        }else{
+            pos.set(touch);
+        }
         batch.begin();
-        batch.draw(img, pos.x, pos.y);
+        bl.setPosition(pos);
+        bl.draw(batch);
         batch.end();
 
-        if (((Math.round(pos.x) == Math.round(touch.x)) &&  (Math.round(pos.y) == Math.round(touch.y)))){
-
-            v.set(0,0);
-        }
     }
 
     @Override
@@ -43,19 +57,6 @@ public class MenuScreen extends BaseScreen {
         img.dispose();
     }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        touch.set(screenX, Gdx.graphics.getHeight() - screenY);
-        v = getNewVector();
-        return false;
-    }
-
-    public Vector2 getNewVector(){
-        Vector2 newVector = new Vector2(touch.x - pos.x, touch.y - pos.y);
-        double c = (Math.sqrt(newVector.x* newVector.x + newVector.y* newVector.y) / Math.sqrt(v.x*v.x + v.y*v.y));
-        newVector.set((float)(newVector.x / c), (float) (newVector.y / c));
-        return newVector;
 
 
-    }
 }
