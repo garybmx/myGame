@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+
 import com.geekbrains.math.MatrixUtils;
 import com.geekbrains.math.Rect;
-
 
 public abstract class BaseScreen implements Screen, InputProcessor {
 
@@ -23,7 +23,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     private Matrix4 worldToGl;
     private Matrix3 screenToWorld;
 
-    protected Vector2 touch;
+    private Vector2 touch;
 
     @Override
     public void show() {

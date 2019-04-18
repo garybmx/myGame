@@ -15,19 +15,14 @@ public class Rect {
 
     }
 
-    public void setPosition(Vector2 pos){
-        this.pos.set(pos);
-    }
-
     public Rect(Rect from) {
-         this(from.pos.x, from.pos.y, from.getHalfWidth(), from.getHalfHeight());
+        this(from.pos.x, from.pos.y, from.getHalfWidth(), from.getHalfHeight());
     }
 
     public Rect(float x, float y, float halfWidth, float halfHeight) {
         pos.set(x, y);
         this.halfWidth = halfWidth;
         this.halfHeight = halfHeight;
-
     }
 
     public float getLeft() {

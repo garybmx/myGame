@@ -1,4 +1,4 @@
-package com.geekbrains;
+package com.geekbrains.sprite;
 
 import com.badlogic.gdx.Game;
 

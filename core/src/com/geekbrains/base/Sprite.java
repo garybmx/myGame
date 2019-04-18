@@ -8,14 +8,13 @@ import com.geekbrains.math.Rect;
 public class Sprite extends Rect {
 
     protected float angle;
-    protected float scale;
+    protected float scale = 1f;
     protected TextureRegion[] regions;
     protected int frame;
 
-    public Sprite(TextureRegion region, float scale) {
+    public Sprite(TextureRegion region) {
         regions = new TextureRegion[1];
         regions[0] = region;
-        this.scale = scale;
     }
 
     public void setHeightProportion(float height) {
@@ -33,7 +32,6 @@ public class Sprite extends Rect {
     }
 
     public void draw(SpriteBatch batch) {
-
         batch.draw(
                 regions[frame],
                 getLeft(), getBottom(),

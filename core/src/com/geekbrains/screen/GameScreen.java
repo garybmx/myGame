@@ -11,22 +11,23 @@ import com.geekbrains.sprite.Background;
 import com.geekbrains.sprite.ButtonExit;
 import com.geekbrains.sprite.ButtonPlay;
 import com.geekbrains.sprite.Star;
+import com.geekbrains.sprite.StarShip;
 
-public class MenuScreen extends BaseScreen {
-
+public class GameScreen extends BaseScreen {
     private Game game;
 
     private Texture bg;
     private Background background;
-    private TextureAtlas atlas;
     private Star starList[];
+    private TextureAtlas atlas;
+    private TextureAtlas mainAtlas;
 
-    private ButtonExit buttonExit;
-    private ButtonPlay buttonPlay;
+    private StarShip ship;
 
-    public MenuScreen(Game game) {
+    public GameScreen(Game game) {
         this.game = game;
     }
+
 
     @Override
     public void show() {
@@ -34,13 +35,14 @@ public class MenuScreen extends BaseScreen {
         bg = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(bg));
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
+        mainAtlas = new TextureAtlas("textures/mainAtlas.tpack");
         starList = new Star[256];
         for (int i = 0; i < starList.length; i++) {
             starList[i] = new Star(atlas);
         }
-        buttonExit = new ButtonExit(atlas);
-        buttonPlay = new ButtonPlay(atlas, game);
+        ship = new StarShip(mainAtlas, game);
     }
+
 
     @Override
     public void resize(Rect worldBounds) {
@@ -49,8 +51,7 @@ public class MenuScreen extends BaseScreen {
         for (Star star : starList) {
             star.resize(worldBounds);
         }
-        buttonExit.resize(worldBounds);
-        buttonPlay.resize(worldBounds);
+        ship.resize(worldBounds);
     }
 
     @Override
@@ -72,8 +73,7 @@ public class MenuScreen extends BaseScreen {
         for (Star star : starList) {
             star.draw(batch);
         }
-        buttonExit.draw(batch);
-        buttonPlay.draw(batch);
+        ship.draw(batch);
         batch.end();
     }
 
@@ -82,19 +82,21 @@ public class MenuScreen extends BaseScreen {
         super.dispose();
         bg.dispose();
         atlas.dispose();
+        mainAtlas.dispose();
     }
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
-        buttonExit.touchDown(touch, pointer);
-        buttonPlay.touchDown(touch, pointer);
+       // buttonExit.touchDown(touch, pointer);
+
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
-        buttonExit.touchUp(touch, pointer);
-        buttonPlay.touchUp(touch, pointer);
+       // buttonExit.touchUp(touch, pointer);
+
         return false;
     }
+
 }
